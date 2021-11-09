@@ -23,29 +23,30 @@
     </f:entry>
 
     <f:block>
-      <table>
-        <f:optionalBlock field="customTestCycle" title="Customize the created test cycle">
-            <f:entry title="Name" field="testCycleName">
-                <f:textbox field="testCycleName"/>
-            </f:entry>
+        <table>
+            <f:optionalBlock field="customTestCycle" name="customizeTestCycle" checked="${instance.customizeTestCycle}"
+                             title="Customize the created test cycle" inline="true">
+                <f:entry title="Name" field="testCycleName">
+                    <f:textbox field="testCycleName"/>
+                </f:entry>
 
-            <f:entry title="Description" field="testCycleDescription">
-                <f:textbox field="testCycleDescription"/>
-            </f:entry>
+                <f:entry title="Description" field="testCycleDescription">
+                    <f:textbox field="testCycleDescription"/>
+                </f:entry>
 
-            <f:entry title="Jira Project Version ID" field="testCycleJiraProjectVersionId">
-                <f:textbox field="testCycleJiraProjectVersionId"/>
-            </f:entry>
+                <f:entry title="Jira Project Version ID" field="testCycleJiraProjectVersionId">
+                    <f:textbox field="testCycleJiraProjectVersionId"/>
+                </f:entry>
 
-            <f:entry title="Folder ID" field="testCycleFolderId">
-                <f:textbox field="testCycleFolderId"/>
-            </f:entry>
+                <f:entry title="Folder ID" field="testCycleFolderId">
+                    <f:textbox field="testCycleFolderId"/>
+                </f:entry>
 
-            <f:entry title="Custom Fields" field="testCycleCustomFields">
-                <f:textbox field="testCycleCustomFields"/>
-            </f:entry>
-        </f:optionalBlock>
-      </table>
+                <f:entry title="Custom Fields" field="testCycleCustomFields">
+                    <f:textbox field="testCycleCustomFields"/>
+                </f:entry>
+            </f:optionalBlock>
+        </table>
     </f:block>
 
     <script src="${rootURL}/plugin/tm4j-automation/js/postbuildaction/TestResultPublisher/index.js"/>

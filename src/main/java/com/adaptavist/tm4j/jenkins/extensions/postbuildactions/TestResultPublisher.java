@@ -5,7 +5,6 @@ import static com.adaptavist.tm4j.jenkins.utils.Constants.INFO;
 import static com.adaptavist.tm4j.jenkins.utils.Constants.JUNIT_RESULT_FILE;
 import static com.adaptavist.tm4j.jenkins.utils.Constants.NAME_POST_BUILD_ACTION;
 
-import com.adaptavist.tm4j.jenkins.extensions.CustomTestCycle;
 import com.adaptavist.tm4j.jenkins.extensions.Instance;
 import com.adaptavist.tm4j.jenkins.extensions.configuration.Tm4jGlobalConfiguration;
 import com.adaptavist.tm4j.jenkins.http.Tm4jJiraRestClient;
@@ -45,7 +44,13 @@ public class TestResultPublisher extends Notifier implements SimpleBuildStep {
     private String filePath;
     private String format;
     private Boolean autoCreateTestCases;
-    private CustomTestCycle customTestCycle;
+
+    private Boolean customizeTestCycle;
+    private String testCycleName;
+    private String testCycleDescription;
+    private Long testCycleJiraProjectVersionId;
+    private Long testCycleFolderId;
+    private String testCycleCustomFields;
 
     @DataBoundConstructor
     public TestResultPublisher(
@@ -54,18 +59,24 @@ public class TestResultPublisher extends Notifier implements SimpleBuildStep {
         final String filePath,
         final Boolean autoCreateTestCases,
         final String format,
-        final CustomTestCycle customTestCycle
+        final Boolean customizeTestCycle,
+        final String testCycleName,
+        final String testCycleDescription,
+        final Long testCycleJiraProjectVersionId,
+        final Long testCycleFolderId,
+        final String testCycleCustomFields
     ) {
         this.serverAddress = serverAddress;
         this.projectKey = projectKey;
         this.filePath = filePath;
         this.autoCreateTestCases = autoCreateTestCases;
         this.format = format;
-        this.customTestCycle = customTestCycle;
-
-        System.out.println("\n\n########### BEGIN VALUES ##########");
-        System.out.println(customTestCycle);
-        System.out.println("########### END VALUES ##########\n\n");
+        this.customizeTestCycle = customizeTestCycle;
+        this.testCycleName = testCycleName;
+        this.testCycleDescription = testCycleDescription;
+        this.testCycleJiraProjectVersionId = testCycleJiraProjectVersionId;
+        this.testCycleFolderId = testCycleFolderId;
+        this.testCycleCustomFields = testCycleCustomFields;
     }
 
     @Override
@@ -93,7 +104,8 @@ public class TestResultPublisher extends Notifier implements SimpleBuildStep {
     }
 
     private void perform(PrintStream logger, List<Instance> jiraInstances, String directory) throws Exception {
-        new Validator().validateProjectKey(this.projectKey)
+        new Validator()
+            .validateProjectKey(this.projectKey)
             .validateFilePath(this.filePath)
             .validateFormat(this.format)
             .validateServerAddress(this.serverAddress);
@@ -163,14 +175,52 @@ public class TestResultPublisher extends Notifier implements SimpleBuildStep {
         this.autoCreateTestCases = autoCreateTestCases;
     }
 
-    public CustomTestCycle getCustomTestCycle() {
-        System.out.println("\n\ngetCustomTestCycle: " + customTestCycle);
-        return customTestCycle;
+    public Boolean getCustomizeTestCycle() {
+        return customizeTestCycle;
     }
 
-    public void setCustomTestCycle(CustomTestCycle customTestCycle) {
-        System.out.println("\n\nsetCustomTestCycle: " + customTestCycle);
-        this.customTestCycle = customTestCycle;
+    public void setCustomizeTestCycle(Boolean customizeTestCycle) {
+        this.customizeTestCycle = customizeTestCycle;
+    }
+
+    public String getTestCycleName() {
+        return testCycleName;
+    }
+
+    public void setTestCycleName(String testCycleName) {
+        this.testCycleName = testCycleName;
+    }
+
+    public String getTestCycleDescription() {
+        return testCycleDescription;
+    }
+
+    public void setTestCycleDescription(String testCycleDescription) {
+        this.testCycleDescription = testCycleDescription;
+    }
+
+    public Long getTestCycleJiraProjectVersionId() {
+        return testCycleJiraProjectVersionId;
+    }
+
+    public void setTestCycleJiraProjectVersionId(Long testCycleJiraProjectVersionId) {
+        this.testCycleJiraProjectVersionId = testCycleJiraProjectVersionId;
+    }
+
+    public Long getTestCycleFolderId() {
+        return testCycleFolderId;
+    }
+
+    public void setTestCycleFolderId(Long testCycleFolderId) {
+        this.testCycleFolderId = testCycleFolderId;
+    }
+
+    public String getTestCycleCustomFields() {
+        return testCycleCustomFields;
+    }
+
+    public void setTestCycleCustomFields(String testCycleCustomFields) {
+        this.testCycleCustomFields = testCycleCustomFields;
     }
 
     @Symbol("publishTestResults")

@@ -1,7 +1,6 @@
 package com.adaptavist.tm4j.jenkins.utils;
 
 import com.adaptavist.tm4j.jenkins.exception.InvalidJwtException;
-import com.adaptavist.tm4j.jenkins.extensions.CustomTestCycle;
 import com.adaptavist.tm4j.jenkins.extensions.Instance;
 import com.adaptavist.tm4j.jenkins.extensions.JiraCloudInstance;
 import com.adaptavist.tm4j.jenkins.extensions.JiraInstance;
