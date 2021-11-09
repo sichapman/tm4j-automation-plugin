@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
-mvn clean
-mvn hpi:run
+/opt/homebrew/bin/atlas-mvn clean
+/opt/homebrew/bin/atlas-mvn hpi:run
